@@ -119,6 +119,62 @@ body {
     border-bottom: 3px solid rgb(241, 229, 229);
    
   } 
-  h2{
-    /* text-align: left; */
+  style.css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 20px;
   }
+  
+  .container {
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+  }
+  
+  form,
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  select,
+  button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  ul#taskList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul#taskList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .task-category {
+    font-size: 12px;
+    color: gray;
+    margin-left: 10px;
+    font-style: italic;
+  }
+  
+  button.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
