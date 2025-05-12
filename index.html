@@ -7,17 +7,40 @@
 
   
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style2.css">
+
 
   
   
 
 </head>
 <body>
+
+  
+
   <div class="container">
+    <div id="buttons">
+      <button id="login">LOG IN</button>
+
+      <button id="signup">SIGN UP</button>
+    </div>
     <div class="container-1">
-      <h2>Create new user</h2>
-      <form id="userForm">
+
+      <div class="container-1" id="loginContainer">
+        <form id="loginForm" class="hidden">
+          <h2>Log in</h2>
+      
+          <label for="loginName">Full name:</label>
+          <input type="text" id="loginName" required />
+      
+          <label for="loginPassword">Password:</label>
+          <input type="password" id="loginPassword" required />
+      
+          <button type="submit">LOG IN</button>
+        </form>
+      </div>
+
+      <form id="userForm1" class="hidden">
+        <h2>Create new user</h2>
         <label for="firstName"> Full name:</label>
         <input type="text" id="firstName" required />
     
@@ -27,7 +50,10 @@
         <label for="city">  City:</label>
         <input type="text" id="city" required />
     
-        <button id="userForm" type="submit">CREATE</button>
+        <label for="password">  Password:</label>
+        <input type="password" id="password" required />
+        
+        <button id="userForm2" type="submit">SIGN UP</button>
       </form>
     </div>
     
@@ -80,9 +106,9 @@
     </section>
 
   </div>
-  <script type="module" src="userClassInstances.js" defer></script>
   <script type="module" src="listingInformation.js"defer></script>
-  <script type="module" src="foodOrderingSystem.js" defer></script>
-  <script type="module" src="todoApp.js" defer></script> <!-- JS za To-Do app -->
+  <script type="module" src="todoApp.js" defer></script> 
+  <script type="module" src="main.js"></script>
+</body>
 </body>
 </html>

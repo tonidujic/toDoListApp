@@ -15,7 +15,9 @@
 
    const promise= await fetch("https://jsonplaceholder.typicode.com/users");
 const response= await promise.json();
-console.log(response);
+response.forEach(user => {
+   user.password=`api${user.id}`;
+})
 
 const userList=document.getElementById("user-list");
 const userDetailsBox = document.getElementById("user-details");
@@ -25,25 +27,46 @@ const cityEl = document.getElementById("userCity");
 const checkbox = document.getElementById('showUsers');
 const userDetails = document.getElementById('user-details');
 const textToggle=document.querySelector(".show-users-label");
-const form=document.getElementById("userForm");
+const form=document.getElementById("userForm1");
 const fnNewUser=document.getElementById("firstName");
 const emailNewUser=document.getElementById("email");
 const adressNewUser=document.getElementById("city");
-
-
+const passwordNewUser=document.getElementById("password");
+const loginButton=document.getElementById("login");
+const signupButton=document.getElementById("signup");
+const form2=document.getElementById("loginForm" );
 
 
 
 const users=[];
 
 class UserClass{
-   constructor(fullName, email, city){
+   constructor(fullName, email, city,password){
       this.fullName=fullName;
       this.email=email;
       this.city=city;
+      this.password=password;
    }
 }
 
+
+const signUpFoo=function(){
+signupButton.addEventListener('click',function(){
+   form.classList.remove('hidden');
+   form2.classList.add('hidden');
+
+})
+}
+
+
+const logInFoo=function(){
+
+   loginButton.addEventListener('click',function(){
+      form.classList.add('hidden');
+
+      form2.classList.remove('hidden');
+   })
+   }
 const addUser=function(){
    
    
@@ -53,14 +76,16 @@ const addUser=function(){
        const fullName=fnNewUser.value;
        const email=emailNewUser.value;
        const city=adressNewUser.value;
+       const passsword=passwordNewUser.value;
 
-       const newUser=new UserClass(fullName,email,city);
+       const newUser=new UserClass(fullName,email,city,passsword);
        users.push(newUser);
        renderUsers();
 
 fnNewUser.value='';
        emailNewUser.value='';
        adressNewUser.value='';
+       passwordNewUser.value='';
        
       })
       
@@ -74,8 +99,11 @@ addUser();
 
 function renderUsers() {
    userList.innerHTML="";
+   
    const combinedUsers = [...response, ...users];
 for(const user of combinedUsers){
+  
+    
     const newList=document.createElement("li");
     newList.textContent=user.name||user.fullName;
     userList.append(newList);
@@ -148,3 +176,7 @@ checkbox.addEventListener("click", () => {
    }
  });
 
+
+ signUpFoo();
+logInFoo();
+console.log(response);

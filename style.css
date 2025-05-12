@@ -65,9 +65,16 @@ body {
   label {
     font-weight: bold;
   }
-  
+  input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: 2px solid #f0c;  /* Roza boja za fokus */
+  border: 1px solid #f0c;
+}
+
   input[type="text"],
-  input[type="email"] {
+  input[type="email"],
+  input[type="password"]{
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -178,3 +185,20 @@ body {
     cursor: pointer;
   }
   
+ #buttons button{
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 5px;
+
+  
+ }
+ #buttons button:hover{
+  background-color:#30565a ;
+  
+ }
