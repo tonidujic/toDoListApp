@@ -6,7 +6,8 @@ const taskList=document.getElementById('taskList');
 const button = document.getElementById('button');
 const rndButton=document.querySelector('#randomTaskBtn');
 const sumBox=document.getElementById('stats');
-let tasks=[];
+import { currentUser } from './listingInformation.js';
+
 
 
 
@@ -34,10 +35,12 @@ const filteredTasks=function(){
 
 
 const renderTask=function(){
+
+
     taskList.innerHTML='';
    
 
-   tasks.forEach(function(task,i){
+   currentUser.tasks.forEach(function(task){
     const li=document.createElement('li');
     li.textContent=`${task.text}, ${task.category}`;
     taskList.appendChild(li);
@@ -121,7 +124,7 @@ async function randomTask(){
         id:Date.now(),
         category: 'API',
        };
-tasks.push(newTask);
+currentUser.tasks.push(newTask);
        renderTask();
     }catch(error){
 console.error(error.message);
@@ -140,9 +143,9 @@ const input= taskInput.value;
     id:Date.now(),
     category:categorySelect.value,
  }
-   tasks.push(newObj);
+   currentUser.tasks.push(newObj);
    renderTask();
-console.log(tasks);
+console.log(currentUser.tasks);
 
 taskInput.value="";
 

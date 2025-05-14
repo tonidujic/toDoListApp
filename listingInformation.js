@@ -35,20 +35,54 @@ const passwordNewUser=document.getElementById("password");
 const loginButton=document.getElementById("login");
 const signupButton=document.getElementById("signup");
 const form2=document.getElementById("loginForm" );
-
-
+const loginIntoAccBttn=document.getElementById("loginIntoAcc");
+const loginName=document.getElementById("loginName");
+const loginPassword=document.getElementById("loginPassword");
+export let currentUser=null;
 
 const users=[];
 
 class UserClass{
-   constructor(fullName, email, city,password){
+   constructor(fullName, email, city,password,tasks){
       this.fullName=fullName;
       this.email=email;
       this.city=city;
       this.password=password;
+      this.tasks=[];
    }
 }
 
+
+const userTaskShowing=function(){
+  
+
+   form2.addEventListener('submit', function (e) {
+      e.preventDefault(); 
+      const loginUserFn = loginName.value;
+      const loginUserPassword = loginPassword.value;
+    
+      const combinedUsers = [...response, ...users];
+      console.log(loginUserFn, loginUserPassword);
+      const foundUser = combinedUsers.find(function(user) {
+
+         const name=user.fullName||user.name;
+        return name === loginUserFn && user.password === loginUserPassword;
+      
+   });
+    
+
+      if (foundUser) {
+        currentUser = foundUser;
+        const name=currentUser.fullName||currentUser.name;
+        alert(`Uspješno prijavljen korisnik: ${name}`);
+      } else {
+        alert("Pogrešan korisnik ili lozinka");
+      }
+    });
+
+   
+}
+userTaskShowing();
 
 const signUpFoo=function(){
 signupButton.addEventListener('click',function(){
@@ -76,11 +110,17 @@ const addUser=function(){
        const fullName=fnNewUser.value;
        const email=emailNewUser.value;
        const city=adressNewUser.value;
-       const passsword=passwordNewUser.value;
+       const password=passwordNewUser.value;
 
-       const newUser=new UserClass(fullName,email,city,passsword);
+       const newUser=new UserClass(fullName,email,city,password);
        users.push(newUser);
        renderUsers();
+       currentUser = newUser;
+
+// nameEl.innerHTML = "<strong>Full name: </strong>" + newUser.fullName;
+// emailEl.innerHTML = "<strong>Email: </strong>" + newUser.email;
+// cityEl.innerHTML = "<strong>City: </strong>" + newUser.city;
+// userDetailsBox.classList.remove('hidden');
 
 fnNewUser.value='';
        emailNewUser.value='';
