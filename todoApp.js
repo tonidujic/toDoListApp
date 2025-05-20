@@ -6,12 +6,11 @@ const taskList=document.getElementById('taskList');
 const button = document.getElementById('button');
 const rndButton=document.querySelector('#randomTaskBtn');
 const sumBox=document.getElementById('stats');
-let tasks=[];
-
+import { getCurrentUser,setCurrentUser } from "./listingInformation.js";
 
 
 const deleteTask=function(id){
-    tasks=tasks.filter(function(task){
+    getCurrentUser().tasks=getCurrentUser().tasks.filter(function(task){
         return task.id!==id;
     })
     renderTask();
@@ -22,7 +21,7 @@ const filteredTasks=function(){
     taskList.innerHTML='';
 
     const selectedCategory=categoryFilter.value;
-    const filtered=tasks.filter(function(task){
+    const filtered=getCurrentUser().tasks.filter(function(task){
         return task.category===selectedCategory;
      });
      filtered.forEach(function(task){
@@ -31,13 +30,11 @@ const filteredTasks=function(){
         taskList.appendChild(li);
 });
 }
-
-
 const renderTask=function(){
     taskList.innerHTML='';
    
 
-   tasks.forEach(function(task,i){
+   getCurrentUser().tasks.forEach(function(task,i){
     const li=document.createElement('li');
     li.textContent=`${task.text}, ${task.category}`;
     taskList.appendChild(li);
@@ -60,7 +57,6 @@ const renderTask=function(){
   button.style.backgroundColor = 'green';
   button.style.color = 'white';
   button.style.borderRadius = '10px';
-
 
     //button EDIT
     const changeButton = document.createElement('button');
@@ -92,21 +88,18 @@ renderTask();
     
    })
 
-
 }
-  
+
 function updateTaskCount() {
-    if(tasks.length===0){
+    if(getCurrentUser().tasks.length===0){
         sumBox.style.display='none';
         sumBox.textContent = '';
     }else{
         sumBox.style.display = 'inline-block'
-        sumBox.textContent = `Ukupno zadataka: ${tasks.length}`;
+        sumBox.textContent = `Ukupno zadataka: ${getCurrentUser().tasks.length}`;
     }
      
   }
-
-
 
 async function randomTask(){
     try{
@@ -121,7 +114,7 @@ async function randomTask(){
         id:Date.now(),
         category: 'API',
        };
-tasks.push(newTask);
+getCurrentUser().tasks.push(newTask);
        renderTask();
     }catch(error){
 console.error(error.message);
@@ -129,8 +122,6 @@ console.error(error.message);
     
     
 }
-
-
 const submitEvent=function(){
     todoForm.addEventListener("submit",function(e){
 e.preventDefault();
@@ -140,12 +131,11 @@ const input= taskInput.value;
     id:Date.now(),
     category:categorySelect.value,
  }
-   tasks.push(newObj);
+   getCurrentUser().tasks.push(newObj);
    renderTask();
-console.log(tasks);
+console.log(getCurrentUser().tasks);
 
 taskInput.value="";
-
 
     })
 }
@@ -155,8 +145,8 @@ taskInput.value="";
 categoryFilter.addEventListener("change",function(){
 
     filteredTasks();
-})
+});
+
+
 submitEvent();
-
-
-
+export { renderTask,taskList,sumBox };
