@@ -210,8 +210,11 @@ cityEl.innerHTML = "<strong>City: </strong>" + city;
        })
 
     })
+    const isCurrentUser = (user.email && user.email === getCurrentUser().email) ||
+                      (user.id && user.id === getCurrentUser().id);
+if(isCurrentUser){
     const button=document.createElement('button');
-    button.textContent='DELETE';
+    button.textContent='DELETE MY ACCOUNT';
     button.style.color='WHITE';
     button.style.backgroundColor='red';
     button.style.borderRadius='10px';
@@ -221,8 +224,9 @@ cityEl.innerHTML = "<strong>City: </strong>" + city;
   
     newList.appendChild(button);
     button.addEventListener('click',function(e){
-      
+      const confirmed=confirm("ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?");
        e.stopPropagation();
+       if(confirmed){
          newList.remove();
 
          if(user.fullName){
@@ -237,14 +241,13 @@ cityEl.innerHTML = "<strong>City: </strong>" + city;
               localStorage.setItem("blockedApiUsers", JSON.stringify(blockedApiUsers));
             }
           }
-    
-       
-            
-
+         }
+         
          
     })
+   
+   }
 
-  
 }
 }
 checkbox.addEventListener("click", () => {
