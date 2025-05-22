@@ -4,6 +4,7 @@ response.forEach(user => {
    user.password=`api${user.id}`;
    user.tasks=[];
 })
+console.log(response);
 import { renderTask, taskList,sumBox } from './todoApp.js';
 const userList=document.getElementById("user-list");
 const userDetailsBox = document.getElementById("user-details");
@@ -21,6 +22,11 @@ const passwordNewUser=document.getElementById("password");
 const loginButton=document.getElementById("login");
 const signupButton=document.getElementById("signup");
 const form2=document.getElementById("loginForm" );
+const toDoListSection=document.getElementById("toDoListSection");
+const section=document.getElementById("section");
+  
+
+
 let currentUser = null;
 function initializeCurrentUser() {
    const saved = localStorage.getItem("currentUser");
@@ -34,7 +40,6 @@ function initializeCurrentUser() {
 
  let blockedApiUsers=JSON.parse(localStorage.getItem("blockedApiUsers"))|| [];
 
-document.getElementById('section').classList.remove('hidden');
 
 export function setCurrentUser(user) {
   currentUser = user;
@@ -70,9 +75,10 @@ class UserClass{
 
 const signUpFoo=function(){
 signupButton.addEventListener('click',function(){
+toDoListSection.classList.add('hidden');
    form.classList.remove('hidden');
    form2.classList.add('hidden');
-   document.getElementById('section').classList.add('hidden');
+   section.classList.add('hidden');
    renderTask();
    taskList.innerHTML='';
    sumBox.style.display='none';
@@ -84,10 +90,11 @@ signupButton.addEventListener('click',function(){
 const logInFoo=function(){
 
    loginButton.addEventListener('click',function(){
+      toDoListSection.classList.add('hidden');
       form.classList.add('hidden');
 
       form2.classList.remove('hidden');
-document.getElementById('section').classList.add('hidden');
+section.classList.add('hidden');
 taskList.innerHTML='';
 sumBox.style.display='none';
 
@@ -98,7 +105,7 @@ sumBox.style.display='none';
 
    form2.addEventListener('submit',function(e){
 e.preventDefault();
-document.getElementById('section').classList.remove('hidden');
+section.classList.remove('hidden');
 
 const name=document.getElementById('loginName').value;
 const password=document.getElementById('loginPassword').value;
@@ -113,6 +120,8 @@ const foundUser=combinedUsers.find(function(user){
 if(foundUser){
    
    alert(`Login successful for: ${foundUser.fullName||foundUser.name } `);
+section.classList.remove('hidden');
+toDoListSection.classList.remove('hidden');
    setCurrentUser(foundUser);
    renderTask();
   
@@ -133,7 +142,8 @@ const addUser=function(){
    
     form.addEventListener('submit',function(e){
       e.preventDefault();
-
+section.classList.remove('hidden');
+toDoListSection.classList.remove('hidden');
        const fullName=fnNewUser.value;
        const email=emailNewUser.value;
        const city=adressNewUser.value;
@@ -154,7 +164,7 @@ console.log(getCurrentUser());
 
        renderUsers();
        localStorage.setItem("users",JSON.stringify(users));
-       document.getElementById('section').classList.remove('hidden');
+       section.classList.remove('hidden');
 
 
 fnNewUser.value='';
@@ -214,7 +224,7 @@ cityEl.innerHTML = "<strong>City: </strong>" + city;
                       (user.id && user.id === getCurrentUser().id);
 if(isCurrentUser){
     const button=document.createElement('button');
-    button.textContent='DELETE MY ACCOUNT';
+    button.textContent='SIGN OUT';
     button.style.color='WHITE';
     button.style.backgroundColor='red';
     button.style.borderRadius='10px';
@@ -224,23 +234,18 @@ if(isCurrentUser){
   
     newList.appendChild(button);
     button.addEventListener('click',function(e){
-      const confirmed=confirm("ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?");
+      const confirmed=confirm("ARE YOU SURE YOU WANT TO SIGN OUT?");
        e.stopPropagation();
        if(confirmed){
-         newList.remove();
-
-         if(user.fullName){
-            users=users.filter(function(u){
-               return u.email!==user.email;
-            })
-            localStorage.setItem("users", JSON.stringify(users));
-         } else {
+         
+         section.classList.add('hidden');
+         toDoListSection.classList.add('hidden');
+      
        
-            if (!blockedApiUsers.includes(user.id)) {
-              blockedApiUsers.push(user.id);
-              localStorage.setItem("blockedApiUsers", JSON.stringify(blockedApiUsers));
-            }
-          }
+            
+            setCurrentUser(null);
+            
+         
          }
          
          
