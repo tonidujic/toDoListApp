@@ -44,7 +44,6 @@ A simple ToDo application with user authentication features, built with vanilla 
 ## Future Improvements
 
 - Connect to a backend API for real user management and persistent storage
-- Add task editing and completion status
 - Improve form validations and error handling
 - Add password encryption for security
 
